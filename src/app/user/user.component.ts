@@ -1,19 +1,8 @@
 import { Component, computed, Input, signal, input, Output, EventEmitter, output } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
+// import { DUMMY_USERS } from '../dummy-users';
+import { type User } from './user.model';
 
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-
-/*type User = {
-  id: string;
-  name: string;
-  avatar: string;
-};*/
-
-interface User {
-  id: string;
-  name: string;
-  avatar: string;
-};
+// const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
 @Component({
   selector: 'app-user',
@@ -24,6 +13,7 @@ interface User {
 export class UserComponent {
 
   @Input({ required: true }) user!: User;
+  @Input({ required: true }) selected!: boolean;
 
   // propriedade que vai receber o avatar do usuário selecionado por meio de um input,
   // que é uma forma de passar dados de um componente pai para um componente filho. 
