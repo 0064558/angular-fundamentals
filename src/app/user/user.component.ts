@@ -3,6 +3,18 @@ import { DUMMY_USERS } from '../dummy-users';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
+/*type User = {
+  id: string;
+  name: string;
+  avatar: string;
+};*/
+
+interface User {
+  id: string;
+  name: string;
+  avatar: string;
+};
+
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -11,14 +23,16 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 })
 export class UserComponent {
 
+  @Input({ required: true }) user!: User;
+
   // propriedade que vai receber o avatar do usuário selecionado por meio de um input,
   // que é uma forma de passar dados de um componente pai para um componente filho. 
-  @Input({required: true}) avatar!: string;
+  //@Input({required: true}) avatar!: string;
 
   // propriedade que vai receber o nome do usuário selecionado por meio de um input
-  @Input({required: true}) name!: string;
+  //@Input({required: true}) name!: string;
 
-  @Input({required: true}) id!: string;
+  //@Input({required: true}) id!: string;
 
   // propriedade que vai emitir um evento para o componente pai informando que o usuário foi selecionado
   // um output é uma forma de passar dados/eventos de um componente filho para um componente pai (O componente app é o pai do componente user)
@@ -29,9 +43,9 @@ export class UserComponent {
   // outra forma de declarar um input é usando a função input para passar os dados como um sinal
   // avatar = input.required<string>();
   // name = input.required<string>();
-  
+
   get imagePath() {
-    return 'assets/users/' + this.avatar;
+    return 'assets/users/' + this.user.avatar;
   }
 
   // propriedade que vai armazenar o caminho da imagem do usuário selecionado por meio de um signal computado,
@@ -41,7 +55,7 @@ export class UserComponent {
   // método que vai ser chamado quando o usuário clicar no botão
   onSelectUser() {
     // emite um evento para o componente pai informando que o usuário foi selecionado
-    this.select.emit(this.id);
+    this.select.emit(this.user.id);
   }
 
   // propriedade que vai armazenar o usuário selecionado por meio de um signal, 
