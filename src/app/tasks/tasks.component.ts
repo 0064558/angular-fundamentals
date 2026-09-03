@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TaskComponent } from './task/task.component';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { type NewTaskData } from './task/task.model';
 import { TasksService } from './tasks.service';
+import { DUMMY_USERS } from '../dummy-users';
 
 @Component({
   selector: 'app-tasks',
@@ -12,12 +14,20 @@ import { TasksService } from './tasks.service';
   imports: [TaskComponent, NewTaskComponent],
 })
 export class TasksComponent {
-  @Input({ required: true }) userId!: string;
-  @Input({ required: true }) name!: string;
+  @Input() userId!: string;
+  name = '';
   isAddingTask = false;
 
   // injeção de dependência do serviço TasksService para gerenciar as tarefas
-  constructor(private tasksService: TasksService) {}
+  constructor(
+    private tasksService: TasksService,
+    private route: ActivatedRoute,
+  ) {
+    this.route.paramMap.subscribe((params) => {
+      this.userId = params.get('userId') ?? '';
+      this.name = DUMMY_USERS.find((user) => user.id === this.userId)?.name ?? '';
+    });
+  }
 
 
   get selectedUserTasks() {

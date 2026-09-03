@@ -2,6 +2,7 @@ import { Component, computed, Input, signal, input, Output, EventEmitter, output
 // import { DUMMY_USERS } from '../dummy-users';
 import { type User } from './user.model';
 import { CardComponent } from "../shared/card/card.component";
+import { RouterLink } from '@angular/router';
 
 // const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
@@ -10,7 +11,7 @@ import { CardComponent } from "../shared/card/card.component";
   standalone: true,
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
-  imports: [CardComponent]
+  imports: [CardComponent, RouterLink],
 })
 export class UserComponent {
 
@@ -69,5 +70,3 @@ export class UserComponent {
     // this.selectedUser = DUMMY_USERS[randomIndex];
   }*/
 }
-
-// input passa os dados do component user para o component app, que é o componente pai, e o output passa os dados do component app para o component user, que é o componente filho
